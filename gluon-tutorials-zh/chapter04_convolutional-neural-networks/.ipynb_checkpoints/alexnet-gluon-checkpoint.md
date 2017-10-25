@@ -109,7 +109,7 @@ with net.name_scope():
 
 Alexnet使用Imagenet数据，其中输入图片大小一般是$224 \times 224$。因为Imagenet数据训练时间过长，我们还是用前面的FashionMNIST来演示。读取数据的时候我们额外做了一步将数据扩大到原版Alexnet使用的$224 \times 224$。
 
-```{.python .input  n=8}
+```{.python .input  n=2}
 import sys
 sys.path.append('..')
 import utils
@@ -135,7 +135,7 @@ train_data, test_data = utils.load_data_fashion_mnist(
 
 （交叉熵、相对熵：https://www.zhihu.com/question/41252833）
 
-```{.python .input  n=9}
+```{.python .input  n=3}
 from mxnet import autograd 
 from mxnet import gluon
 from mxnet import nd
@@ -167,21 +167,6 @@ for epoch in range(1):
     print("Epoch %d. Loss: %f, Train acc %f, Test acc %f" % (
         epoch, train_loss/len(train_data), 
         train_acc/len(train_data), test_acc))
-```
-
-```{.json .output n=9}
-[
- {
-  "name": "stderr",
-  "output_type": "stream",
-  "text": "C:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_conv0_weight is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_conv0_bias is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_conv1_weight is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_conv1_bias is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_conv2_weight is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_conv2_bias is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_conv3_weight is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_conv3_bias is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_conv4_weight is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_conv4_bias is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_dense0_weight is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_dense0_bias is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_dense1_weight is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_dense1_bias is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_dense2_weight is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\nC:\\ProgramData\\Anaconda3\\lib\\site-packages\\mxnet\\gluon\\parameter.py:281: UserWarning: Parameter sequential1_dense2_bias is already initialized, ignoring. Set force_reinit=True to re-initialize.\n  \"Set force_reinit=True to re-initialize.\"%self.name)\n"
- },
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "test\nEpoch 0. Loss: 0.358470, Train acc 0.867437, Test acc 0.885649\n"
- }
-]
 ```
 
 ## 结论

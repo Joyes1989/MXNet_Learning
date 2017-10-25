@@ -182,7 +182,7 @@ print(net[0].weight.data(), net[0].bias.data())
 
 更多的方法参见[init的API](https://mxnet.incubator.apache.org/api/python/optimization.html#the-mxnet-initializer-package). 下面我们自定义一个初始化方法。
 
-```{.python .input  n=54}
+```{.python .input}
 class MyInit(init.Initializer):
     def __init__(self):
         super(MyInit, self).__init__()
@@ -202,104 +202,40 @@ params.initialize(init=MyInit(), force_reinit=True)
 print(net[0].weight.data(), net[0].bias.data())
 ```
 
-```{.json .output n=54}
-[
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "init weight (4, 5)\ninit weight (2, 4)\n\n[[ 8.37423706  7.58689547  6.38446903  5.66034031  5.87454414]\n [ 8.58429909  8.52237129  6.98029852  7.31575108  7.82710648]\n [ 9.20214272  5.916399    6.02432871  5.72423887  5.82479429]\n [ 7.44028139  5.62416553  6.77806377  8.61040306  9.70215988]]\n<NDArray 4x5 @cpu(0)> \n[ 0.  0.  0.  0.]\n<NDArray 4 @cpu(0)>\n"
- }
-]
-```
-
-## 延后的初始化 **
+## 延后的初始化
 
 我们之前提到过Gluon的一个便利的地方是模型定义的时候不需要指定输入的大小，在之后做forward的时候会自动推测参数的大小。我们具体来看这是怎么工作的。
 
 新创建一个网络，然后打印参数。你会发现两个全连接层的权重的形状里都有0。 这是因为在不知道输入数据的情况下，我们无法判断它们的形状。
 
-```{.python .input  n=59}
+```{.python .input}
 net = get_net()
 print(net.collect_params())
-# 这里可以看到多个weight的大小中存在0，
-# 因为我们只在创建dense时指定了输出为4，并没给出数据的大小，因此这里确切大小是未知的
-# 这里注意：只要没有输入样本数据，weight/bias都是未知的
-print(net.params())
-```
-
-```{.json .output n=59}
-[
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "sequential13_ (\n  Parameter sequential13_dense0_weight (shape=(4, 0), dtype=<class 'numpy.float32'>)\n  Parameter sequential13_dense0_bias (shape=(4,), dtype=<class 'numpy.float32'>)\n  Parameter sequential13_dense1_weight (shape=(2, 0), dtype=<class 'numpy.float32'>)\n  Parameter sequential13_dense1_bias (shape=(2,), dtype=<class 'numpy.float32'>)\n)\n"
- },
- {
-  "ename": "TypeError",
-  "evalue": "'ParameterDict' object is not callable",
-  "output_type": "error",
-  "traceback": [
-   "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-   "\u001b[1;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
-   "\u001b[1;32m<ipython-input-59-d9749a14e68b>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m()\u001b[0m\n\u001b[0;32m      3\u001b[0m \u001b[1;31m# \u8fd9\u91cc\u53ef\u4ee5\u770b\u5230\u591a\u4e2aweight\u7684\u5927\u5c0f\u4e2d\u5b58\u57280\uff0c\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m      4\u001b[0m \u001b[1;31m# \u56e0\u4e3a\u6211\u4eec\u53ea\u5728\u521b\u5efadense\u65f6\u6307\u5b9a\u4e86\u8f93\u51fa\u4e3a4\uff0c\u5e76\u6ca1\u7ed9\u51fa\u6570\u636e\u7684\u5927\u5c0f\uff0c\u56e0\u6b64\u8fd9\u91cc\u786e\u5207\u5927\u5c0f\u662f\u672a\u77e5\u7684\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m----> 5\u001b[1;33m \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mnet\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mparams\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-   "\u001b[1;31mTypeError\u001b[0m: 'ParameterDict' object is not callable"
-  ]
- }
-]
 ```
 
 然后我们初始化
 
-```{.python .input  n=60}
+```{.python .input}
 net.initialize(init=MyInit())
-# 这里并没有真正执行调用MyInit函数
 ```
 
-**你会看到我们并没有看到MyInit打印的东西，这是因为我们仍然不知道形状。真正的初始化发生在我们看到数据时。**
+你会看到我们并没有看到MyInit打印的东西，这是因为我们仍然不知道形状。真正的初始化发生在我们看到数据时。
 
-```{.python .input  n=61}
+```{.python .input}
 net(x)
-```
-
-```{.json .output n=61}
-[
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "init weight (4, 5)\ninit weight (2, 4)\n"
- },
- {
-  "data": {
-   "text/plain": "\n[[ 586.34375     467.12890625]\n [ 404.9107666   323.89505005]\n [ 643.9407959   514.78717041]]\n<NDArray 3x2 @cpu(0)>"
-  },
-  "execution_count": 61,
-  "metadata": {},
-  "output_type": "execute_result"
- }
-]
 ```
 
 这时候我们看到shape里面的0被填上正确的值了。
 
-```{.python .input  n=62}
+```{.python .input}
 print(net.collect_params())
 ```
 
-```{.json .output n=62}
-[
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "sequential13_ (\n  Parameter sequential13_dense0_weight (shape=(4, 5), dtype=<class 'numpy.float32'>)\n  Parameter sequential13_dense0_bias (shape=(4,), dtype=<class 'numpy.float32'>)\n  Parameter sequential13_dense1_weight (shape=(2, 4), dtype=<class 'numpy.float32'>)\n  Parameter sequential13_dense1_bias (shape=(2,), dtype=<class 'numpy.float32'>)\n)\n"
- }
-]
-```
-
-## 避免延后初始化 * * * * *
+## 避免延后初始化
 
 有时候我们不想要延后初始化，这时候可以在创建网络的时候指定输入大小。
 
-```{.python .input  n=63}
+```{.python .input}
 net = nn.Sequential()
 with net.name_scope():
     net.add(nn.Dense(4, in_units=5, activation="relu"))
@@ -308,21 +244,11 @@ with net.name_scope():
 net.initialize(MyInit())
 ```
 
-```{.json .output n=63}
-[
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "init weight (4, 5)\ninit weight (2, 4)\n"
- }
-]
-```
-
 ## 共享模型参数
 
 有时候我们想在层之间共享同一份参数，我们可以通过Block的`params`输出参数来手动指定参数，而不是让系统自动生成。
 
-```{.python .input  n=64}
+```{.python .input}
 net = nn.Sequential()
 with net.name_scope():
     net.add(nn.Dense(4, in_units=4, activation="relu"))
@@ -334,20 +260,10 @@ with net.name_scope():
 
 初始化然后打印
 
-```{.python .input  n=65}
+```{.python .input}
 net.initialize(MyInit())
 print(net[0].weight.data())
 print(net[1].weight.data())
-```
-
-```{.json .output n=65}
-[
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "init weight (4, 4)\ninit weight (2, 4)\n\n[[ 9.87129307  6.73616743  9.31154823  5.74070454]\n [ 8.90213299  9.90914726  9.92516136  7.39185143]\n [ 8.76784801  7.4869566   5.02024031  8.1973629 ]\n [ 6.34739685  6.84292316  7.05246067  5.68450165]]\n<NDArray 4x4 @cpu(0)>\n\n[[ 9.87129307  6.73616743  9.31154823  5.74070454]\n [ 8.90213299  9.90914726  9.92516136  7.39185143]\n [ 8.76784801  7.4869566   5.02024031  8.1973629 ]\n [ 6.34739685  6.84292316  7.05246067  5.68450165]]\n<NDArray 4x4 @cpu(0)>\n"
- }
-]
 ```
 
 ## 总结

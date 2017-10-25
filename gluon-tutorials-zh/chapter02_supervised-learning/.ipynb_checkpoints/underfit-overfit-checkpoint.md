@@ -116,7 +116,7 @@ y += .1 * nd.random.normal(shape=y.shape)
 
 以下的训练步骤在[使用Gluon的线性回归](linear-regression-gluon.md)有过详细描述。这里不再赘述。
 
-```{.python .input  n=6}
+```{.python .input  n=5}
 %matplotlib inline
 import matplotlib as mpl
 mpl.rcParams['figure.dpi']= 120

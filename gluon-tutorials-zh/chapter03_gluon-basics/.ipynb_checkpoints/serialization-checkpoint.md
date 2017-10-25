@@ -29,16 +29,6 @@ a, b = nd.load(filename)
 print(a, b)
 ```
 
-```{.json .output n=3}
-[
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "\n[ 1.  1.  1.]\n<NDArray 3 @cpu(0)> \n[ 0.  0.  0.  0.]\n<NDArray 4 @cpu(0)>\n"
- }
-]
-```
-
 不仅可以读写单个NDArray，NDArray list，dict也是可以的：
 
 ```{.python .input  n=4}
@@ -50,16 +40,6 @@ nd.save(filename, mydict)
 ```{.python .input  n=5}
 c = nd.load(filename)
 print(c)
-```
-
-```{.json .output n=5}
-[
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "{'x': \n[ 1.  1.  1.]\n<NDArray 3 @cpu(0)>, 'y': \n[ 0.  0.  0.  0.]\n<NDArray 4 @cpu(0)>}\n"
- }
-]
 ```
 
 ## 读写Gluon模型的参数
@@ -82,51 +62,20 @@ x = nd.random.uniform(shape=(2,10))
 print(net(x))
 ```
 
-```{.json .output n=6}
-[
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "\n[[-0.01796602  0.00558522]\n [-0.01267574  0.0035485 ]]\n<NDArray 2x2 @cpu(0)>\n"
- }
-]
-```
-
 下面我们把模型参数存起来
 
-```{.python .input  n=7}
+```{.python .input}
 filename = "../data/mlp.params"
 net.save_params(filename)
 ```
 
 之后我们构建一个一样的多层感知机，但不像前面那样随机初始化，我们直接读取前面的模型参数。这样给定同样的输入，新的模型应该会输出同样的结果。
 
-```{.python .input  n=14}
+```{.python .input  n=8}
 import mxnet as mx
 net2 = get_net()
 net2.load_params(filename, mx.cpu())  # FIXME, gluon will support default ctx later 
-print(net2(x), mx.gpu())
-
-import mxnet as mx
-[mx.cpu(), mx.gpu(), mx.gpu(1)]
-```
-
-```{.json .output n=14}
-[
- {
-  "name": "stdout",
-  "output_type": "stream",
-  "text": "\n[[-0.01796602  0.00558522]\n [-0.01267574  0.0035485 ]]\n<NDArray 2x2 @cpu(0)> gpu(0)\n"
- },
- {
-  "data": {
-   "text/plain": "[cpu(0), gpu(0), gpu(1)]"
-  },
-  "execution_count": 14,
-  "metadata": {},
-  "output_type": "execute_result"
- }
-]
+print(net2(x))
 ```
 
 ## 总结
