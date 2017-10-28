@@ -6,19 +6,11 @@
 
 ## 如何贡献
 
-<<<<<<< HEAD
-所有notebook是用markdown格式存储，这样方便merge改动。jupyter可以通过notedown来直接使用markdown，[参考这里安装](./chapter00_preface/install.md#使用notedown插件来读写github源文件)
-
-build服务器在 http://gluon-ci.mxnet.io 。这台服务器有一块Nvidia M60。
-
-所有markdown文件需要在提交前清除output，它们会在服务器上重新执行生成结果。所以需要保证每个notebook执行不要太久，目前限制是4min。
-=======
 所有notebook是用markdown格式存储，这样方便merge改动。jupyter可以通过notedown来直接使用markdown，[参考这里安装](./chapter_preface/install.md#使用notedown插件来读写github源文件)
 
 build服务器在 http://ci.mxnet.io 。这台服务器有两块Nvidia M60。
 
 所有markdown文件需要在提交前清除output，它们会在服务器上重新执行生成结果。所以需要保证每个notebook执行不要太久，目前限制是20min。
->>>>>>> 1fdb77f2f1cb057207fec36ea6cea10e4799bf0c
 
 在本地可以如下build html（需要GPU支持）
 
@@ -64,8 +56,6 @@ make latex
 cd _build/latex
 xelatex -interaction nonstopmode gluon_tutorials_zh.tex
 ```
-<<<<<<< HEAD
-=======
 
 
 ## Terminology 中英术语对照表
@@ -191,4 +181,3 @@ training set, 训练集
 training, 训练
 
 unsupervised learning, 无监督学习
->>>>>>> 1fdb77f2f1cb057207fec36ea6cea10e4799bf0c
