@@ -1,0 +1,20 @@
+# MXNet_Learning
+MXNet-gluon AND MXNet-SourceCode
+
+
+1. 通过github中的create_pull_request功能将gluon官方项目(mli/gluon-tutorials-zh)上的最新更改
+    merge到自己目录下的从gluon项目fork出来的目录：Joyes1989/gluon-tutorials-zh中
+   (具体操作参考: https://jinlong.github.io/2015/10/12/syncing-a-fork/文章)
+  
+2. 将自己目录下Joyes1989/gluon-tutorials-zh(已经同步了官网的最新更改)更新到个人本地电脑目录(有冲突时需要处理合并冲突)
+3. 本地电脑目录对应的仓库是Joyes1989/MXNet_Learning/gluon-tutorials-zh这个github目录，因此直接提交到github上，
+    即完成了对于Joyes1989/MXNet_Learning/gluon-tutorials-zh的同步(保持既包含了官网的更新又包含了自己的修改)
+
+
+[注意事项]
+1. 执行 git pull https://github.com/Joyes1989/gluon-tutorials-zh.git 来更新github内容到本地
+2. 若需要撤销pull内容，执行git reset --hard 回滚所有未commit的内容
+3. git冲突的处理方法:
+	(1) 参考: https://github.com/jerryni/blog/issues/12
+	(2) 左侧的窗口内容维最终的结果文件，以该文件内容为准
+    

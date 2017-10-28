@@ -6,4 +6,8 @@ dependencies:
 - pandas
 - pip:
   - requests
+<<<<<<< HEAD
+  - mxnet>=0.11.1b20170913
+=======
   - mxnet>=0.11.1b20171003
+>>>>>>> 1fdb77f2f1cb057207fec36ea6cea10e4799bf0c
