@@ -1,14 +1,8 @@
 # MXNet_Learning
 MXNet-gluon AND MXNet-SourceCode
 
+更新gluon官网内容到本项目目录的方法见印象笔记内容：工作学习/GitHub/[Mxnet项目更新方法]
 
-1. 通过github中的create_pull_request功能将gluon官方项目(mli/gluon-tutorials-zh)上的最新更改
-    merge到自己目录下的从gluon项目fork出来的目录：Joyes1989/gluon-tutorials-zh中
-   (具体操作参考: https://jinlong.github.io/2015/10/12/syncing-a-fork/文章)
-  
-2. 将自己目录下Joyes1989/gluon-tutorials-zh(已经同步了官网的最新更改)更新到个人本地电脑目录(有冲突时需要处理合并冲突)
-3. 本地电脑目录对应的仓库是Joyes1989/MXNet_Learning/gluon-tutorials-zh这个github目录，因此直接提交到github上，
-    即完成了对于Joyes1989/MXNet_Learning/gluon-tutorials-zh的同步(保持既包含了官网的更新又包含了自己的修改)
 
 
 
